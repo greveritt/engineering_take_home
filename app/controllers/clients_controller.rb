@@ -12,34 +12,6 @@ class ClientsController < ApplicationController
   def show
   end
 
-  # POST /clients
-  # POST /clients.json
-  def create
-    @client = Client.new(client_params)
-
-    if @client.save
-      render :show, status: :created, location: @client
-    else
-      render json: @client.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /clients/1
-  # PATCH/PUT /clients/1.json
-  def update
-    if @client.update(client_params)
-      render :show, status: :ok, location: @client
-    else
-      render json: @client.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /clients/1
-  # DELETE /clients/1.json
-  def destroy
-    @client.destroy!
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
