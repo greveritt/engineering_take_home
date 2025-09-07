@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: %i[ show update destroy ]
+  before_action :set_client, only: %i[ show ]
 
   # GET /clients
   # GET /clients.json
