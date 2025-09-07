@@ -10,13 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_05_204439) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_06_211107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  # Custom types defined in this database.
-  # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "custom_field_type", ["number", "freeform", "enum"]
 
   create_table "buildings", force: :cascade do |t|
     t.bigint "client_id", null: false
@@ -37,16 +33,68 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_05_204439) do
     t.index ["name"], name: "index_clients_on_name", unique: true
   end
 
-  create_table "custom_fields", force: :cascade do |t|
+  create_table "custom_enum_field_values", force: :cascade do |t|
+    t.string "value", null: false
+    t.bigint "custom_enum_field_id", null: false
+    t.bigint "building_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_custom_enum_field_values_on_building_id"
+    t.index ["custom_enum_field_id"], name: "index_custom_enum_field_values_on_custom_enum_field_id"
+  end
+
+  create_table "custom_enum_fields", force: :cascade do |t|
     t.string "name", null: false
-    t.enum "type", null: false, enum_type: "custom_field_type"
     t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_custom_fields_on_client_id"
-    t.index ["name"], name: "index_custom_fields_on_name", unique: true
+    t.index ["client_id"], name: "index_custom_enum_fields_on_client_id"
+  end
+
+  create_table "custom_freeform_field_values", force: :cascade do |t|
+    t.string "value", null: false
+    t.bigint "custom_freeform_field_id", null: false
+    t.bigint "building_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_custom_freeform_field_values_on_building_id"
+    t.index ["custom_freeform_field_id"], name: "index_custom_freeform_field_values_on_custom_freeform_field_id"
+  end
+
+  create_table "custom_freeform_fields", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_custom_freeform_fields_on_client_id"
+  end
+
+  create_table "custom_number_field_values", force: :cascade do |t|
+    t.decimal "value", null: false
+    t.bigint "custom_number_field_id", null: false
+    t.bigint "building_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_custom_number_field_values_on_building_id"
+    t.index ["custom_number_field_id"], name: "index_custom_number_field_values_on_custom_number_field_id"
+  end
+
+  create_table "custom_number_fields", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_custom_number_fields_on_client_id"
   end
 
   add_foreign_key "buildings", "clients"
-  add_foreign_key "custom_fields", "clients"
+  add_foreign_key "custom_enum_field_values", "buildings"
+  add_foreign_key "custom_enum_field_values", "custom_enum_fields"
+  add_foreign_key "custom_enum_fields", "clients"
+  add_foreign_key "custom_freeform_field_values", "buildings"
+  add_foreign_key "custom_freeform_field_values", "custom_freeform_fields"
+  add_foreign_key "custom_freeform_fields", "clients"
+  add_foreign_key "custom_number_field_values", "buildings"
+  add_foreign_key "custom_number_field_values", "custom_number_fields"
+  add_foreign_key "custom_number_fields", "clients"
 end

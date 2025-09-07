@@ -13,5 +13,8 @@ RSpec.describe Building, type: :model do
     subject { FactoryBot.build(:building) }
 
     it { is_expected.to belong_to :client }
+    it { is_expected.to have_many :custom_freeform_field_values }
+    it { is_expected.to have_many :custom_number_field_values }
+    it { is_expected.to have_many :custom_enum_field_values }
   end
 end
