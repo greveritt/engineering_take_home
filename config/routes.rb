@@ -14,4 +14,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "welcome#index"
+  get "*path", to: "welcome#index", via: :all
 end
