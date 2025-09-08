@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     }
   },
   {
-    path: '/client/:clientId',
+    path: '/clients/:clientId',
     element: <Client />,
     loader: ({ params }) => {
       // return defer(fetch(`${BASE_URL}/clients/${params.clientId}.json`));

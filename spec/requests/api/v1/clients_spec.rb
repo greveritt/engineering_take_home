@@ -12,9 +12,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/buildings", type: :request do
+RSpec.describe "/api/v1/clients", type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # Building. As you add validations to Building, be sure to
+  # Client. As you add validations to Client, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -26,7 +26,7 @@ RSpec.describe "/buildings", type: :request do
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
-  # BuildingsController, or in your router and rack
+  # ClientsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
     {}
@@ -34,48 +34,48 @@ RSpec.describe "/buildings", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      Building.create! valid_attributes
-      get buildings_url, headers: valid_headers, as: :json
+      Client.create! valid_attributes
+      get api_v1_clients_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      building = Building.create! valid_attributes
-      get building_url(building), as: :json
+      client = Client.create! valid_attributes
+      get api_v1_client_url(client), as: :json
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Building" do
+      it "creates a new Client" do
         expect {
-          post buildings_url,
-               params: { building: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(Building, :count).by(1)
+          post api_v1_clients_url,
+               params: { client: valid_attributes }, headers: valid_headers, as: :json
+        }.to change(Client, :count).by(1)
       end
 
-      it "renders a JSON response with the new building" do
-        post buildings_url,
-             params: { building: valid_attributes }, headers: valid_headers, as: :json
+      it "renders a JSON response with the new client" do
+        post api_v1_clients_url,
+             params: { client: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Building" do
+      it "does not create a new Client" do
         expect {
-          post buildings_url,
-               params: { building: invalid_attributes }, as: :json
-        }.to change(Building, :count).by(0)
+          post api_v1_clients_url,
+               params: { client: invalid_attributes }, as: :json
+        }.to change(Client, :count).by(0)
       end
 
-      it "renders a JSON response with errors for the new building" do
-        post buildings_url,
-             params: { building: invalid_attributes }, headers: valid_headers, as: :json
+      it "renders a JSON response with errors for the new client" do
+        post api_v1_clients_url,
+             params: { client: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -88,28 +88,28 @@ RSpec.describe "/buildings", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested building" do
-        building = Building.create! valid_attributes
-        patch building_url(building),
-              params: { building: new_attributes }, headers: valid_headers, as: :json
-        building.reload
+      it "updates the requested client" do
+        client = Client.create! valid_attributes
+        patch api_v1_client_url(client),
+              params: { client: new_attributes }, headers: valid_headers, as: :json
+        client.reload
         skip("Add assertions for updated state")
       end
 
-      it "renders a JSON response with the building" do
-        building = Building.create! valid_attributes
-        patch building_url(building),
-              params: { building: new_attributes }, headers: valid_headers, as: :json
+      it "renders a JSON response with the client" do
+        client = Client.create! valid_attributes
+        patch api_v1_client_url(client),
+              params: { client: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
     end
 
     context "with invalid parameters" do
-      it "renders a JSON response with errors for the building" do
-        building = Building.create! valid_attributes
-        patch building_url(building),
-              params: { building: invalid_attributes }, headers: valid_headers, as: :json
+      it "renders a JSON response with errors for the client" do
+        client = Client.create! valid_attributes
+        patch api_v1_client_url(client),
+              params: { client: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -117,11 +117,11 @@ RSpec.describe "/buildings", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested building" do
-      building = Building.create! valid_attributes
+    it "destroys the requested client" do
+      client = Client.create! valid_attributes
       expect {
-        delete building_url(building), headers: valid_headers, as: :json
-      }.to change(Building, :count).by(-1)
+        delete api_v1_client_url(client), headers: valid_headers, as: :json
+      }.to change(Client, :count).by(-1)
     end
   end
 end
