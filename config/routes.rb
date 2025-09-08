@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # TODO: Move these resources to an API namespace so as to not conflict with client page routes
   resources :buildings
   resources :clients
   get "welcome/index"

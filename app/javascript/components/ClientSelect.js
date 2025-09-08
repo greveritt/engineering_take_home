@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const ClientSelect = () => {
   const clients = useLoaderData();
@@ -8,7 +8,7 @@ const ClientSelect = () => {
     <div id="clients">
       {
         clients.map(client => {
-          return (<p id={client.id} key={client.id}>{client.name}</p>);
+          return (<Link id={client.id} key={client.id} to={`client/${client.id}`}><div className="client-link">{client.name}</div></Link>);
         })
       }
     </div>
