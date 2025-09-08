@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <ClientSelect />,
-    loader: ({}) => {
+    loader: () => {
       return fetch(`${BASE_URL}/clients.json`);
     }
   },
