@@ -88,7 +88,10 @@ RSpec.describe "/api/v1/buildings", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attrs = attributes_for(:building, client_id: client.id)
+        attrs.delete(:id)
+        attrs.delete(:client)
+        attrs
       }
 
       it "updates the requested building" do

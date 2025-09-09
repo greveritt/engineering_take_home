@@ -1,4 +1,5 @@
 class Api::V1::Clients::BuildingsController < ApplicationController
+  protect_from_forgery except: %i[create update destroy]
   before_action :set_building, only: %i[ show update destroy ]
 
   # GET /api/v1/clients/1/buildings
@@ -16,10 +17,11 @@ class Api::V1::Clients::BuildingsController < ApplicationController
   # POST /api/v1/clients/1/buildings
   # POST /api/v1/clients/1/buildings.json
   def create
-    @building = Building.new(building_params)
+    @client = ::Client.find(params.require(:client_id))
+    @building = Building.new(client_id: @client.id, **building_params)
 
     if @building.save
-      render :show, status: :created, location: @building
+      render :show, status: :ok, template: "api/v1/clients/buildings/show"
     else
       render json: @building.errors, status: :unprocessable_entity
     end
@@ -29,7 +31,7 @@ class Api::V1::Clients::BuildingsController < ApplicationController
   # PATCH/PUT /api/v1/clients/1/buildings/1.json
   def update
     if @building.update(building_params)
-      render :show, status: :ok, location: @building
+      render :show, status: :ok, template: "api/v1/clients/buildings/show"
     else
       render json: @building.errors, status: :unprocessable_entity
     end
@@ -50,6 +52,6 @@ class Api::V1::Clients::BuildingsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def building_params
       # TODO: whitelist building attributes
-      params.fetch(:building, {})
+      params[:building].permit(:address1, :address2, :city, :state, :zip)
     end
 end

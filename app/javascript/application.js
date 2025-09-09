@@ -6,9 +6,16 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { BASE_URL } from './lib/constants';
+import Building, { updateAction } from './components/Building';
+import CreateBuilding, { createAction } from './components/CreateBuilding';
 import GlobalBuildingList from './components/GlobalBuildingList';
 import Client from './components/Client';
 import ClientSelect from './components/ClientSelect';
+import BuildingForm from './components/BuildingForm';
+
+const clientBuildingLoader = ({ params }) => {
+  return fetch(`${BASE_URL}/clients/${params.clientId}/buildings/${params.buildingId}.json`);
+};
 
 const router = createBrowserRouter([
   {
@@ -27,20 +34,38 @@ const router = createBrowserRouter([
     },
     // children: [
     //   {
+    //     path: '/clients/:clientId/buildings',
+    //     element: <CreateBuilding />,
+    //     action: createAction
+    //   }
+    // ]
+    // children: [
+    //   {
     //     path: '/buildings',
     //     element: <GlobalBuildingList />,
     //     loader: ({ params }) => {
     //       return fetch(`${BASE_URL}/clients/${params.clientId}/buildings.json`);
     //     }
     //   },
-    //   {
-    //     path: '/buildings/:buildingId',
-    //     element: <Building />,
-    //     loader: ({ params }) => {
-    //       return fetch(`${BASE_URL}/clients/${params.clientId}/buildings/${params.buildingId}.json`);
-    //     }
-    //   }
+      // {
+      //   path: '/buildings/:buildingId',
+      //   element: <Building />,
+      //   loader: ({ params }) => {
+      //     return fetch(`${BASE_URL}/clients/${params.clientId}/buildings/${params.buildingId}.json`);
+      //   }
+      // }
     // ],
+  },
+  {
+    path: '/clients/:clientId/buildings',
+    element: <CreateBuilding />,
+    action: createAction
+  },
+  {
+    path: '/clients/:clientId/buildings/:buildingId',
+    element: <Building />,
+    loader: clientBuildingLoader,
+    action: updateAction
   },
   {
     path: '/buildings',
