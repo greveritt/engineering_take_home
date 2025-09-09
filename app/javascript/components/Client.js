@@ -25,9 +25,6 @@ const Client = () => {
         <li>Created at: {client.created_at}</li>
         <li>Updated at: {client.updated_at}</li>
       </ul>
-      <div id="buildings">
-        
-      </div>
     </>
   );
 };

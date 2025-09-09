@@ -1,6 +1,6 @@
 module Api
   module V1
-    class BuildingsController < ApplicationController
+    class AllBuildingsController < ApplicationController
       before_action :set_building, only: %i[ show update destroy ]
 
       # GET /api/v1/buildings
@@ -26,6 +26,7 @@ module Api
         end
       end
 
+      # TODO: Delete action
       # PATCH/PUT /api/v1/buildings/1
       # PATCH/PUT /api/v1/buildings/1.json
       def update

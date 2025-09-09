@@ -6,7 +6,7 @@ module Api
       # GET /api/v1/clients
       # GET /api/v1/clients.json
       def index
-        @clients = Client.all
+        @clients = ::Client.all
       end
 
       # GET /api/v1/clients/1
@@ -17,7 +17,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_client
-          @client = Client.find(params[:id])
+          @client = ::Client.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.

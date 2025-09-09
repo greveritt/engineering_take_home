@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :clients
-      resources :buildings
+      resources :clients do
+        resources :buildings, controller: "clients/buildings"
+      end
+
+      resources :buildings, controller: "all_buildings"
     end
   end
 

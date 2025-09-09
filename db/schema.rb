@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_08_220346) do
 
   create_table "custom_enum_fields", force: :cascade do |t|
     t.string "name", null: false
+    t.string "choices", null: false, array: true
     t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
