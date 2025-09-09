@@ -15,8 +15,8 @@ RSpec.describe Client, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many :buildings }
-    it { is_expected.to have_many :custom_freeform_field }
-    it { is_expected.to have_many :custom_number_field }
-    it { is_expected.to have_many :custom_enum_field }
+    it { is_expected.to have_many :custom_freeform_fields }
+    it { is_expected.to have_many :custom_number_fields }
+    it { is_expected.to have_many :custom_enum_fields }
   end
 end

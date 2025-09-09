@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_06_211107) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_08_220346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,14 +33,21 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_06_211107) do
     t.index ["name"], name: "index_clients_on_name", unique: true
   end
 
-  create_table "custom_enum_field_values", force: :cascade do |t|
+  create_table "custom_enum_field_choices", force: :cascade do |t|
     t.string "value", null: false
     t.bigint "custom_enum_field_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["custom_enum_field_id"], name: "index_custom_enum_field_choices_on_custom_enum_field_id"
+  end
+
+  create_table "custom_enum_field_values", force: :cascade do |t|
+    t.bigint "custom_enum_field_choice_id", null: false
     t.bigint "building_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_custom_enum_field_values_on_building_id"
-    t.index ["custom_enum_field_id"], name: "index_custom_enum_field_values_on_custom_enum_field_id"
+    t.index ["custom_enum_field_choice_id"], name: "index_custom_enum_field_values_on_custom_enum_field_choice_id"
   end
 
   create_table "custom_enum_fields", force: :cascade do |t|
@@ -88,8 +95,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_06_211107) do
   end
 
   add_foreign_key "buildings", "clients"
+  add_foreign_key "custom_enum_field_choices", "custom_enum_fields"
   add_foreign_key "custom_enum_field_values", "buildings"
-  add_foreign_key "custom_enum_field_values", "custom_enum_fields"
+  add_foreign_key "custom_enum_field_values", "custom_enum_field_choices"
   add_foreign_key "custom_enum_fields", "clients"
   add_foreign_key "custom_freeform_field_values", "buildings"
   add_foreign_key "custom_freeform_field_values", "custom_freeform_fields"
