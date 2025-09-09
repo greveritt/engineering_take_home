@@ -11,6 +11,7 @@ const ClientSelect = () => {
           return (<Link id={client.id} key={client.id} to={`clients/${client.id}`}><div className="client-link">{client.name}</div></Link>);
         })
       }
+      <Link to="/buildings">View buildings for all clients</Link>
     </div>
   );
 };
