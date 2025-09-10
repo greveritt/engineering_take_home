@@ -6,7 +6,9 @@ module Api
       # GET /api/v1/buildings
       # GET /api/v1/buildings.json
       def index
-        @buildings = Building.all
+        pagy, @buildings = pagy(Building.all)
+        @paging_metadata = pagy_metadata(pagy)
+        render template: "/api/v1/clients/buildings/index"
       end
 
       # GET /api/v1/buildings/1

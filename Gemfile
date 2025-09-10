@@ -61,3 +61,6 @@ group :development do
   # Use VS Code's test runner, along with all the other Ruby LSP features
   gem "ruby-lsp-rspec"
 end
+
+# Pagination for building records, etc.
+gem "pagy", "~> 9.4"

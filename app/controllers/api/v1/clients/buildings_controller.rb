@@ -6,7 +6,8 @@ class Api::V1::Clients::BuildingsController < ApplicationController
   # GET /api/v1/clients/1/buildings.json
   def index
     @client = ::Client.find(params[:client_id])
-    @buildings = @client.buildings
+    pagy, @buildings = pagy(@client.buildings)
+    @paging_metadata = pagy_metadata(pagy)
   end
 
   # GET /api/v1/clients/1/buildings/1

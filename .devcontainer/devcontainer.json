@@ -40,10 +40,11 @@
 				"dbaeumer.vscode-eslint",
 				"Shopify.ruby-lsp",
 				"wmaurer.change-case",
-				"jkjustjoshing.vscode-text-pastry"
+				"jkjustjoshing.vscode-text-pastry",
+				"eamodio.gitlens"
 			]
 		}
-	},
+	}
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
