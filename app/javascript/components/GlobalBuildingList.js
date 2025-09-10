@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
+import ErrorDialog from './ErrorDialog';
 
 const GlobalBuildingList = () => {
-  const buildings = useLoaderData();
+  const { status, buildings, paging, errors } = useLoaderData();
 
-  return (
+  const BuildingTable = ({ buildings }) => (
     <table id="buildings">
       <caption>All buildings</caption>
       <thead>
@@ -17,7 +18,6 @@ const GlobalBuildingList = () => {
           <th scope="col">ZIP code</th>
           <th scope="col">Client</th>
           <th scope="col">Created At</th>
-          <th scope="col">Updated At</th>
         </tr>
       </thead>
       <tbody>
@@ -39,6 +39,10 @@ const GlobalBuildingList = () => {
         }
       </tbody>
     </table>
+  );
+  
+  return (
+    status ? (<BuildingTable buildings={buildings} />) : (<ErrorDialog errors={errors} />)
   );
 };
 

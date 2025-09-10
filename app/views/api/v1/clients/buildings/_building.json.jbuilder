@@ -1,4 +1,8 @@
 json.extract! building, :id, :address1, :address2, :city, :state, :zip, :created_at, :updated_at
+json.client do
+  json.id building.client.id
+  json.name building.client.name
+end
 json.custom_freeform_field_values do
   json.array! building.custom_freeform_field_values do |custom_freeform_field_value|
     json.value custom_freeform_field_value.value
