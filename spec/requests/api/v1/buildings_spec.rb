@@ -32,14 +32,64 @@ RSpec.describe "/api/v1/buildings", type: :request do
   # BuildingsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      'Content-Type': 'application/json'
+    }
   }
 
   describe "GET /index" do
+    subject(:get_index) { get api_v1_buildings_url, headers: valid_headers, as: :json }
+
+    let!(:building) { create(:building, client_id: client.id) }
+    let!(:custom_enum_fields) { create_list(:custom_enum_field, 2, client: client) }
+    let!(:custom_enum_field_choices) { custom_enum_fields.map { |field| create_list(:custom_enum_field_choice, 2, custom_enum_field: field) } }
+    let!(:custom_enum_field_values) { custom_enum_field_choices.map { |choice| create(:custom_enum_field_value, 2, custom_enum_field_choice: choice) } }
+    let!(:custom_number_fields) { create_list(:custom_number_field, 2, client: client) }
+    let!(:custom_number_field_values) { custom_number_fields.map { |field| CustomNumberFieldValue.create!(value: Faker::Number.number, custom_number_field: field, building: building) } }
+    let!(:custom_freeform_fields) { create_list(:custom_freeform_field, 2, client: client) }
+    let!(:custom_freeform_field_values) { custom_freeform_fields.map { |field| CustomFreeformFieldValue.create!(value: Faker::Adjective.positive, custom_freeform_field: field, building: building) } }
+
     it "renders a successful response" do
-      Building.create! valid_attributes
-      get api_v1_buildings_url, headers: valid_headers, as: :json
+      get_index
+
       expect(response).to be_successful
+    end
+
+    it "has a status flag" do
+      get_index
+
+      expect(JSON.parse(response.body)).to include('status' => true)
+    end
+
+    it "has an array of buildings" do
+      get_index
+
+      expect(JSON.parse(response.body)).to include(
+        'buildings' => include(
+          include(
+            'id' => building.id,
+            'client_name' => building.client.name,
+            # TODO: One-line address like in requirements
+            'address1' => building.address1,
+            'address2' => building.address2,
+            'city' => building.city,
+            'state' => building.state,
+            'zip' => building.zip
+          )
+        )
+      )
+    end
+
+    it "includes custom fields in the buildings" do
+      get_index
+
+      expect(JSON.parse(response.body)).to include(
+        'buildings' => include(
+          include(
+
+          )
+        )
+      )
     end
   end
 

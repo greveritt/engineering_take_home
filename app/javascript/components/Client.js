@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
-const Client = () => {
+const Client = ({ children }) => {
   const client = useLoaderData();
 
   // return (
@@ -27,6 +27,7 @@ const Client = () => {
       </ul>
 
       <Link to={`/clients/${client.id}/buildings`}>Add a building</Link>
+      {children}
     </>
   );
 };

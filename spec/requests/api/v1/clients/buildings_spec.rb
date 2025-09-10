@@ -15,7 +15,9 @@ RSpec.describe "/api/v1/clients/:client_id/buildings/(:id)", type: :request do
   # BuildingsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      'Content-Type': 'application/json'
+    }
   }
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
