@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const Client = () => {
   const client = useLoaderData();
@@ -25,6 +25,8 @@ const Client = () => {
         <li>Created at: {client.created_at}</li>
         <li>Updated at: {client.updated_at}</li>
       </ul>
+
+      <Link to={`/clients/${client.id}/buildings`}>Add a building</Link>
     </>
   );
 };

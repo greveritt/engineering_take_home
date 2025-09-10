@@ -25,7 +25,7 @@ const GlobalBuildingList = () => {
           buildings.map(building => {
             return (
               <tr id={`building-${building.id}`} key={`building-${building.id}`}>
-                <th scope="row"><Link id={building.id} key={building.id} to={`buildings/${building.id}`}>{building.id}</Link></th>
+                <th scope="row"><Link id={building.id} key={building.id} to={`/clients/${building.client.id}/buildings/${building.id}`}>{building.id}</Link></th>
                 <td>{building.address1}</td>
                 <td>{building.address2}</td>
                 <td>{building.city}</td>
