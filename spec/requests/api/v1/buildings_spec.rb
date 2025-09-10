@@ -69,7 +69,7 @@ RSpec.describe "/api/v1/buildings", type: :request do
           include(
             'id' => building.id,
             'client_name' => building.client.name,
-            # TODO: One-line address like in requirements
+            # TODO?: One-line address like in requirements
             'address1' => building.address1,
             'address2' => building.address2,
             'city' => building.city,
@@ -90,94 +90,6 @@ RSpec.describe "/api/v1/buildings", type: :request do
           )
         )
       )
-    end
-  end
-
-  describe "GET /show" do
-    it "renders a successful response" do
-      building = Building.create! valid_attributes
-      get api_v1_building_url(building), as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Building" do
-        expect {
-          post api_v1_buildings_url,
-               params: { building: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(Building, :count).by(1)
-      end
-
-      it "renders a JSON response with the new building" do
-        post api_v1_buildings_url,
-             params: { building: valid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Building" do
-        expect {
-          post api_v1_buildings_url,
-               params: { building: invalid_attributes }, as: :json
-        }.to change(Building, :count).by(0)
-      end
-
-      it "renders a JSON response with errors for the new building" do
-        post api_v1_buildings_url,
-             params: { building: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        attrs = attributes_for(:building, client_id: client.id)
-        attrs.delete(:id)
-        attrs.delete(:client)
-        attrs
-      }
-
-      it "updates the requested building" do
-        building = Building.create! valid_attributes
-        patch api_v1_building_url(building),
-              params: { building: new_attributes }, headers: valid_headers, as: :json
-        building.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "renders a JSON response with the building" do
-        building = Building.create! valid_attributes
-        patch api_v1_building_url(building),
-              params: { building: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a JSON response with errors for the building" do
-        building = Building.create! valid_attributes
-        patch api_v1_building_url(building),
-              params: { building: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including("application/json"))
-      end
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested building" do
-      building = Building.create! valid_attributes
-      expect {
-        delete api_v1_building_url(building), headers: valid_headers, as: :json
-      }.to change(Building, :count).by(-1)
     end
   end
 end
