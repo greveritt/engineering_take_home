@@ -42,8 +42,8 @@ RSpec.describe "/api/v1/buildings", type: :request do
 
     let!(:building) { create(:building, client_id: client.id) }
     let!(:custom_enum_fields) { create_list(:custom_enum_field, 2, client: client) }
-    let!(:custom_enum_field_choices) { custom_enum_fields.map { |field| create_list(:custom_enum_field_choice, 2, custom_enum_field: field) } }
-    let!(:custom_enum_field_values) { custom_enum_field_choices.map { |choice| create(:custom_enum_field_value, 2, custom_enum_field_choice: choice) } }
+    let!(:custom_enum_field_choices) { custom_enum_fields.flat_map { |field| create_list(:custom_enum_field_choice, 2, custom_enum_field: field) } }
+    let!(:custom_enum_field_values) { custom_enum_field_choices.map { |choice| create_list(:custom_enum_field_value, 2, custom_enum_field_choice: choice) } }
     let!(:custom_number_fields) { create_list(:custom_number_field, 2, client: client) }
     let!(:custom_number_field_values) { custom_number_fields.map { |field| CustomNumberFieldValue.create!(value: Faker::Number.number, custom_number_field: field, building: building) } }
     let!(:custom_freeform_fields) { create_list(:custom_freeform_field, 2, client: client) }

@@ -5,6 +5,6 @@ class CustomEnumField < ApplicationRecord
   has_many :custom_enum_field_choices
   has_many :custom_enum_field_values, through: :custom_enum_field_choices
 
-  alias_attribute :choices, :custom_enum_field_choices
-  alias_attribute :selected_values, :custom_enum_field_values
+  # # alias_attribute :choices, :custom_enum_field_choices
+  # # alias_attribute :selected_values, :custom_enum_field_values
 end
